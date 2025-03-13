@@ -1,0 +1,6 @@
+[submodule "softposit-cpp"]
+	path = softposit-cpp
+	url = https://gitlab.com/cerlane/SoftPosit.git
+[submodule "softposit-rs"]
+	path = softposit-rs
+	url = https://gitlab.com/burrbull/softposit-rs.git
