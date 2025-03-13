@@ -1,0 +1,5 @@
+Operation,posit16 (ns),float (ns),Ratio (posit16/float)
+Addition,8464.06,634.085,13.3484
+Multiplication,6879.67,969.699,7.09464
+Division,7593.1,1759.93,4.31443
+Square Root,3.69792,0.98666,3.74792
