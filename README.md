@@ -13,12 +13,12 @@ This project includes the following repositories as submodules:
 - **SoftPosit C/C++ Library**: C/C++ implementation of the posit standard
 
   - Repository: [https://gitlab.com/cerlane/SoftPosit](https://gitlab.com/cerlane/SoftPosit)
-  - License: BSD 3-Clause License
+  - License: BSD 3-Clause "New" or "Revised" License
 
 - **SoftPosit Rust Library**: Rust implementation of the posit standard
 
   - Repository: [https://gitlab.com/burrbull/softposit-rs](https://gitlab.com/burrbull/softposit-rs)
-  - License: MIT/Apache-2.0 dual license
+  - License: BSD 3-Clause "New" or "Revised" License
 
 - **Google Benchmark**: Microbenchmarking framework for C++
   - Repository: [https://github.com/google/benchmark](https://github.com/google/benchmark)
