@@ -4,3 +4,6 @@
 [submodule "softposit-rs"]
 	path = softposit-rs
 	url = https://gitlab.com/burrbull/softposit-rs.git
+[submodule "google-benchmark"]
+	path = google-benchmark
+	url = https://github.com/google/benchmark.git
