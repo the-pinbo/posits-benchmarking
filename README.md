@@ -2,103 +2,108 @@
 
 This repository contains benchmarks for Posit number format implementations, comparing performance between Posit and IEEE floating-point operations.
 
-## About Posits
+## About
 
-Posits are a floating-point number alternative proposed by John L. Gustafson, offering potential advantages in accuracy, dynamic range, and simplicity compared to IEEE 754 floating-point.
+This repository provides benchmarks for the Posit number format, a floating-point alternative proposed by John L. Gustafson. The benchmarks measure performance of Posit operations compared to traditional IEEE-754 floating-point operations across different implementations and languages.
 
 ## Dependencies
 
-This project uses the following repositories as submodules:
+This project includes the following repositories as submodules:
 
-- **SoftPosit C/C++ Library**: A C/C++ implementation of the posit standard
+- **SoftPosit C/C++ Library**: C/C++ implementation of the posit standard
 
   - Repository: [https://gitlab.com/cerlane/SoftPosit](https://gitlab.com/cerlane/SoftPosit)
   - License: BSD 3-Clause License
 
-- **SoftPosit Rust Library**: A Rust implementation of the posit standard
+- **SoftPosit Rust Library**: Rust implementation of the posit standard
 
   - Repository: [https://gitlab.com/burrbull/softposit-rs](https://gitlab.com/burrbull/softposit-rs)
   - License: MIT/Apache-2.0 dual license
 
-- **Google Benchmark**: A microbenchmarking framework for C++
+- **Google Benchmark**: Microbenchmarking framework for C++
   - Repository: [https://github.com/google/benchmark](https://github.com/google/benchmark)
   - License: Apache-2.0 License
 
-## Building and Running the Benchmarks
+## Getting Started
 
-### 1. Set up Google Benchmark
-
-First, build and install the Google Benchmark library:
+### Clone the Repository with Submodules
 
 ```bash
-git clone https://github.com/google/benchmark.git
-cd benchmark
-cmake -E make_directory "build"
-cmake -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_ENABLE_GTEST_TESTS=OFF -S . -B "build"
-cmake --build "build" --config Release
-sudo cmake --install "build"
+git clone --recursive https://github.com/the-pinbo/posits-benchmarking.git
+cd posits-benchmarking
 ```
 
-### 2. Build SoftPosit C/C++ Library
-
-Next, build the SoftPosit C/C++ library:
+If you've already cloned the repository without the `--recursive` flag:
 
 ```bash
-cd softposit-cpp/build/Linux-x86_64-GCC
-make -j$(nproc) all  # Linux || make -j$(sysctl -n hw.ncpu) all  # macOS
+git submodule update --init --recursive
 ```
 
-### 3. Build and Run the C++ Benchmarks
+### Building and Running C++ Benchmarks
 
-The benchmarks are organized in the `cpp-benchmarks` directory. Build them using the provided makefile:
+1. **Build SoftPosit C/C++ Library**:
 
-```bash
-cd cpp-benchmarks
-mkdir -p build
-make all
-```
+   ```bash
+    cd softposit-cpp/build/Linux-x86_64-GCC
+    make -j$(nproc) all  # Linux || make -j$(sysctl -n hw.ncpu) all  # macOS
+   ```
 
-This will create three benchmark executables:
+2. **Build Google Benchmark** (already included as a submodule):
 
-- `build/google_posit_benchmark_p16`: Uses Google Benchmark framework
-- `build/simple_benchmark_p16`: Simple timing benchmarks
-- `build/posit_vs_fp_bench_p16`: Comparison between posits and floating-point
+   ```bash
+   cd google-benchmark
+   cmake -E make_directory "build"
+   cmake -DCMAKE_BUILD_TYPE=Release -DBENCHMARK_ENABLE_GTEST_TESTS=OFF -S . -B "build"
+   cmake --build "build" --config Release
+   cd ..
+   ```
 
-To run a specific benchmark:
+3. **Build C++ Benchmarks**:
 
-```bash
-# Run Google benchmarks
-./build/google_posit_benchmark_p16
+   ```bash
+   cd cpp-benchmarks
+   mkdir -p build
+   make all
+   ```
 
-# Run simple timing benchmarks
-./build/simple_benchmark_p16
+4. **Run C++ Benchmarks**:
 
-# Run posit vs floating-point comparison
-./build/posit_vs_fp_bench_p16
-```
+   ```bash
+   # Run Google benchmarks
+   ./build/google_posit_benchmark_p16
+
+   # Run simple timing benchmarks
+   ./build/simple_benchmark_p16
+
+   # Run posit vs floating-point comparison
+   ./build/posit_vs_fp_bench_p16
+   ```
+
+### Running Rust Benchmarks
+
+The Rust benchmarks are already implemented in the SoftPosit Rust library:
+
+1. **Ensure Rust is installed**:
+   If you don't have Rust installed, follow the instructions at [https://www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install)
+
+2. **Run Rust benchmarks**:
+
+   ```bash
+   cd softposit-rs
+   cargo bench
+   ```
+
+   This will run all benchmarks defined in the `benches` directory.
 
 ## Current Status
 
-This is a work in progress. Currently, only 16-bit posit (`p16`) operations have been implemented and benchmarked:
+This is a work in progress. Currently, the following operations have been benchmarked:
 
-- Basic operations:
+### C++ Benchmarks (P16 only)
 
-  - Addition
-  - Subtraction
-  - Multiplication
-  - Division
-
-- Mathematical operations:
-
-  - Square root
-  - Rounding
-
-- Quire operations:
-  - Fused multiply-add (qma)
-  - Add posit to quire
-  - Convert quire to posit
-
-Support for other posit sizes (p8, p32, p64) and additional operations will be added in future releases.
+- Basic operations: addition, subtraction, multiplication, division
+- Mathematical operations: square root, rounding
+- Quire operations: fused multiply-add (qma), add posit to quire, convert quire to posit
 
 ## License
 
